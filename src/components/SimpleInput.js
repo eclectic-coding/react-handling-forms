@@ -4,8 +4,14 @@ const SimpleInput = (props) => {
   const [enteredName, setEnteredName] = useState('');
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
 
-  const enteredNameIsValid = enteredName.trim() !== ''
+  const enteredNameIsValid = enteredName.trim() !== '';
   const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
+
+  let formIsValid = false;
+
+  if (enteredNameIsValid) {
+    formIsValid = true;
+  }
 
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
@@ -26,9 +32,8 @@ const SimpleInput = (props) => {
 
     console.log(enteredName);
     setEnteredName('');
-    setEnteredNameTouched(false)
+    setEnteredNameTouched(false);
   };
-
 
   const nameInputClasses = nameInputIsInvalid ? 'form-control invalid' : 'form-control';
 
@@ -43,7 +48,7 @@ const SimpleInput = (props) => {
       {nameInputIsInvalid && <p className="error-text">Name must not be empty</p>}
     </div>
     <div className="form-actions">
-      <button>Submit</button>
+      <button disabled={!formIsValid}>Submit</button>
     </div>
   </form>);
 };
